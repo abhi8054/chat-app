@@ -21,7 +21,7 @@ code {
 body {
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(45deg,rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.2)),
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
     url("/public/images/bg.png");
   background-position: center center;
   background-size: cover;
@@ -31,29 +31,28 @@ body {
 /* dark mode looking scrollbar */
 
 ::-webkit-scrollbar {
-	width: 8px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-	background: #555;
+  background: #555;
 }
 
 ::-webkit-scrollbar-thumb {
-	background: #121212;
-	border-radius: 5px;
+  background: #121212;
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background: #242424;
+  background: #242424;
 }
-
 
 /* chat bubble style */
 
 .chat {
   --rad: 20px;
   --rad-sm: 3px;
-  font-size : 12px;
+  font-size: 12px;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -64,7 +63,7 @@ body {
 
 .msg {
   position: relative;
-  max-width: 75%;
+  max-width: 90%;
   padding: 7px 15px;
   margin-bottom: 2px;
 }
@@ -84,12 +83,12 @@ body {
 }
 
 .msg.sent:first-child,
-.msg.rcvd+.msg.sent {
+.msg.rcvd + .msg.sent {
   border-top-right-radius: var(--rad);
 }
 
 .msg.rcvd:first-child,
-.msg.sent+.msg.rcvd {
+.msg.sent + .msg.rcvd {
   border-top-left-radius: var(--rad);
 }
 
@@ -97,22 +96,22 @@ body {
   content: attr(data-time);
   font-size: 0.8rem;
   position: absolute;
-  bottom: 100%;
-  color: #888;
+  top: 100%;
+  color: #e7e7e7;
   white-space: nowrap;
   display: none;
 }
 
 .msg.sent::before {
-  right: 15px;
+  right: 0;
 }
 
 .msg.rcvd::before {
-  left: 15px;
+  left: 0;
 }
 
 .msg:first-child::before,
-.msg.sent+.msg.rcvd::before,
-.msg.rcvd+.msg.sent::before {
+.msg.sent + .msg.rcvd::before,
+.msg.rcvd + .msg.sent::before {
   display: block;
 }

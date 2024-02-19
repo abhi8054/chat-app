@@ -3,28 +3,32 @@ import styles from "./MessageContainer.module.css";
 import { FiSend } from "react-icons/fi";
 import toast from "react-hot-toast";
 import useSendMessage from "../../hooks/useSendMessage";
+import { useSocketContext } from "../../context/socketContext";
 
 const MessageInput = () => {
   const [message, setMessage] = useState("");
-  const {loading,sendMessage} = useSendMessage()
+  const { loading, sendMessage } = useSendMessage();
+  const { socket } = useSocketContext();
 
   const sendMessageHandler = async () => {
-    if(!message){
-      toast.error('Please write message.')
-      return
-    } 
+    if (!message) {
+      toast.error("Please write message.");
+      return;
+    }
 
-    await sendMessage(message)
-    setMessage('')
+    await sendMessage(message);
+    setMessage("");
   };
 
   return (
     <div className={styles.messageInputCont}>
       <input
-        type='text'
+        type="text"
         value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder='Send a message...'
+        onChange={(e) => {
+          setMessage(e.target.value);
+        }}
+        placeholder="Send a message..."
       />
       <button onClick={sendMessageHandler} className={styles.sendBtn}>
         <FiSend />
