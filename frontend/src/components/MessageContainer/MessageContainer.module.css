@@ -20,6 +20,8 @@
 
 .heading p {
   font-size: 0.8rem;
+  display: flex;
+  gap: 0.3rem;
 }
 
 .heading p span:nth-child(1) {

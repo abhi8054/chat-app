@@ -8,6 +8,7 @@ import {
 } from "../../redux/slice/conversationSlice";
 import { useSocketContext } from "../../context/socketContext";
 import { useNotification } from "../../context/notificationContext";
+import useTyping from "../../hooks/useTyping";
 
 const Conversation = ({ profile, name, conversation }) => {
   const dispatch = useDispatch();
@@ -16,7 +17,8 @@ const Conversation = ({ profile, name, conversation }) => {
   const { onlineUsers } = useSocketContext();
   const online = onlineUsers?.includes(conversation._id);
   const { notification, setNotification } = useNotification();
-
+  const {typing,whoTyping} = useTyping()
+  const who = whoTyping?.includes(conversation._id)
   const onSelectHandler = () => {
     dispatch(addConversation(conversation));
     setNotification([
@@ -40,7 +42,13 @@ const Conversation = ({ profile, name, conversation }) => {
           <img src={profile} alt="profile" />
           <span></span>
         </div>
-        <p className={styles.name}>{name}</p>
+        <div className={styles.name}>
+          <p>{name}</p>
+          {
+            (typing && who) &&
+            <strong className={styles.typing}>Typing...</strong>
+          }
+        </div>
       </div>
       <div className={styles.right}>
         <span>🏀</span>

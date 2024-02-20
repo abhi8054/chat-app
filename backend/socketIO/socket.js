@@ -6,7 +6,6 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ["http://172.17.135.11:3001"],
     methods: ["GET", "POST"]
   }
 });
@@ -24,8 +23,8 @@ io.on("connection", (socket) => {
 
   io.emit("onlineusers", Object.keys(socketAndUserMap));
 
-  socket.on("typing", (id) => {
-    io.to(socketAndUserMap[id]).emit("isTyping", true);
+  socket.on("typing", (obj) => {
+    io.to(socketAndUserMap[obj.typeFor]).emit("isTyping", obj.whoType);
   });
 
   socket.on("disconnect", () => {

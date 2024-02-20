@@ -6,12 +6,11 @@ import { useSelector } from "react-redux";
 import { TiMessages } from "react-icons/ti";
 import { useAuthContext } from "../../context/authContext";
 import useGetSocketConversation from "../../hooks/useGetSocketConversation";
-import useTyping from "../../hooks/useTyping";
+
 const MessageContainer = () => {
   const { selectedConversation } = useSelector((data) => data.conversation);
   const { user } = useAuthContext();
   useGetSocketConversation();
-  const { typing, setTyping } = useTyping();
 
   return (
     <div className={styles.messageCont}>
@@ -32,7 +31,6 @@ const MessageContainer = () => {
               <span>
                 <strong>{selectedConversation?.full_name}</strong>
               </span>
-              <span>{typing ? "Typing..." : ""}</span>
             </p>
           </div>
           <Messages />

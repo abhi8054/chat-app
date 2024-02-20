@@ -6,12 +6,15 @@ import useSendMessage from "../../hooks/useSendMessage";
 import { useSocketContext } from "../../context/socketContext";
 import { useSelector } from "react-redux";
 import useTyping from "../../hooks/useTyping";
+import { useAuthContext } from "../../context/authContext";
 
 const MessageInput = () => {
   const [message, setMessage] = useState("");
   const { loading, sendMessage } = useSendMessage();
   const { socket } = useSocketContext();
   const { selectedConversation } = useSelector((state) => state.conversation);
+  const {user} = useAuthContext()
+  const {setTyping} = useTyping();
 
   const sendMessageHandler = async () => {
     if (!message) {
@@ -20,9 +23,8 @@ const MessageInput = () => {
     }
     await sendMessage(message);
     setMessage("");
+    setTyping(false)
   };
-
-  useTyping();
 
   return (
     <div className={styles.messageInputCont}>
@@ -30,7 +32,7 @@ const MessageInput = () => {
         type="text"
         value={message}
         onChange={(e) => {
-          socket.emit("typing", selectedConversation._id);
+          socket.emit("typing", {typeFor : selectedConversation._id,whoType : user.id});
           setMessage(e.target.value);
         }}
         placeholder="Send a message..."
