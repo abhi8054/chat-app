@@ -24,6 +24,10 @@ io.on("connection", (socket) => {
 
   io.emit("onlineusers", Object.keys(socketAndUserMap));
 
+  socket.on("typing", (id) => {
+    io.to(socketAndUserMap[id]).emit("isTyping", true);
+  });
+
   socket.on("disconnect", () => {
     delete socketAndUserMap[socket.handshake.query.userId];
     io.emit("onlineusers", Object.keys(socketAndUserMap));
