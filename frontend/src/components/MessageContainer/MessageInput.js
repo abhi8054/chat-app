@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import useSendMessage from "../../hooks/useSendMessage";
 import { useSocketContext } from "../../context/socketContext";
 import { useSelector } from "react-redux";
+import useTyping from "../../hooks/useTyping";
 
 const MessageInput = () => {
   const [message, setMessage] = useState("");
@@ -20,6 +21,8 @@ const MessageInput = () => {
     await sendMessage(message);
     setMessage("");
   };
+
+  useTyping();
 
   return (
     <div className={styles.messageInputCont}>

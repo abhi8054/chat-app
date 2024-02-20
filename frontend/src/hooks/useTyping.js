@@ -7,10 +7,16 @@ const useTyping = () => {
   useEffect(() => {
     if (socket) {
       socket.on("isTyping", (flag) => {
-        console.log(flag);
+        setTyping(flag);
       });
+
+      return () => {
+        socket.off("isTyping");
+      };
     }
   }, [socket]);
+
+  return { typing, setTyping };
 };
 
 export default useTyping;
