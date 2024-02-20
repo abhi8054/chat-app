@@ -2,18 +2,31 @@ import { useSelector, useDispatch } from "react-redux";
 import { addMessages } from "../redux/slice/conversationSlice";
 import { useSocketContext } from "../context/socketContext";
 import { useEffect } from "react";
+import { useNotification } from "../context/notificationContext";
 
 const useGetSocketConversation = () => {
-  const { messages } = useSelector((data) => data.conversation);
+  const { messages, selectedConversation } = useSelector(
+    (data) => data.conversation
+  );
   const dispatch = useDispatch();
   const { socket } = useSocketContext();
+  const { setNotification } = useNotification();
 
   useEffect(() => {
-    socket.on("recieved-message", (msg) => {
-      dispatch(addMessages([...messages, msg]));
-    });
-
-    return () => socket.off("recieved-message");
+    if (socket) {
+      socket.on("recieved-message", (msg) => {
+        console.log(msg);
+        if (
+          !selectedConversation ||
+          msg.sender_id !== selectedConversation._id
+        ) {
+          setNotification((prev) => [...prev, msg]);
+        } else {
+          dispatch(addMessages([...messages, msg]));
+        }
+      });
+      return () => socket.off("recieved-message");
+    }
   }, [messages, socket]);
 };
 

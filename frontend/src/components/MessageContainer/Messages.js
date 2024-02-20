@@ -2,11 +2,9 @@ import React from "react";
 import styles from "./MessageContainer.module.css";
 import Message from "./Message";
 import useGetMessages from "../../hooks/useGetMessages";
-import useGetSocketConversation from "../../hooks/useGetSocketConversation";
 
 const Messages = () => {
   const { loading, messages } = useGetMessages();
-  useGetSocketConversation();
 
   return (
     <div className={styles.messageContainer}>

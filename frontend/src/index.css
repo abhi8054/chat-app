@@ -94,9 +94,9 @@ body {
 
 .msg::before {
   content: attr(data-time);
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   position: absolute;
-  top: 100%;
+  top: 115%;
   color: #e7e7e7;
   white-space: nowrap;
   display: none;

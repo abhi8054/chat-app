@@ -37,9 +37,9 @@ const useGetMessages = () => {
         setLoading(false);
       }
     };
-    if (selectedConversation?._id) {
-      getMessages();
-    }
+    // if (selectedConversation?._id) {
+    getMessages();
+    // }
   }, [selectedConversation]);
 
   return { loading, messages };
