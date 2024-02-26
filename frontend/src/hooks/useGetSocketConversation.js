@@ -15,7 +15,6 @@ const useGetSocketConversation = () => {
   useEffect(() => {
     if (socket) {
       socket.on("recieved-message", (msg) => {
-        console.log(msg);
         if (
           !selectedConversation ||
           msg.sender_id !== selectedConversation._id

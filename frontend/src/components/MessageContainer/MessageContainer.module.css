@@ -88,6 +88,10 @@
   font-weight: 700;
 }
 
+.fileHide {
+  display: none;
+}
+
 .contentNoSelect p {
   text-align: center;
 }

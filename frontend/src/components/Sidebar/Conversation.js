@@ -9,6 +9,7 @@ import {
 import { useSocketContext } from "../../context/socketContext";
 import { useNotification } from "../../context/notificationContext";
 import useTyping from "../../hooks/useTyping";
+import Notification from "../Notification/Notification";
 
 const Conversation = ({ profile, name, conversation }) => {
   const dispatch = useDispatch();
@@ -17,14 +18,19 @@ const Conversation = ({ profile, name, conversation }) => {
   const { onlineUsers } = useSocketContext();
   const online = onlineUsers?.includes(conversation._id);
   const { notification, setNotification } = useNotification();
-  const {typing,whoTyping} = useTyping()
-  const who = whoTyping?.includes(conversation._id)
+  const { typing, whoTyping } = useTyping();
+  const who = whoTyping?.includes(conversation._id);
+
   const onSelectHandler = () => {
     dispatch(addConversation(conversation));
     setNotification([
       ...notification.filter((notify) => notify.sender_id !== conversation._id)
     ]);
   };
+
+  const notifica = [
+    ...notification.filter((notify) => notify.sender_id === conversation._id)
+  ];
 
   useEffect(() => {
     return () => {
@@ -44,15 +50,18 @@ const Conversation = ({ profile, name, conversation }) => {
         </div>
         <div className={styles.name}>
           <p>{name}</p>
-          {
-            (typing && who) &&
+          {typing && who && (
             <strong className={styles.typing}>Typing...</strong>
-          }
+          )}
         </div>
       </div>
-      <div className={styles.right}>
-        <span>🏀</span>
-      </div>
+      {notifica.length !== 0 && (
+        <div className={styles.right}>
+          <span className={styles.indicator}>
+            <strong>{notifica.length}</strong>
+          </span>
+        </div>
+      )}
     </div>
   );
 };

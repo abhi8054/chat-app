@@ -19,7 +19,7 @@
   gap: 0.5rem;
 }
 
-.typing{
+.typing {
   color: lime;
   font-size: 0.7rem;
 }
@@ -122,13 +122,24 @@
   border-radius: 50%;
   right: 0;
   top: 4px;
-  border: 2px solid black;
-  background-color: green;
+  border: 1px solid black;
+  background-color: lime;
 }
 
 .activeTile {
   background-color: #42a5f5;
   border-radius: 5px;
+}
+
+.indicator {
+  background-color: lime;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
 }
 
 .footer {
